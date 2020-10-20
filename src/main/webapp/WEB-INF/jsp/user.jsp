@@ -10,7 +10,6 @@
   background-color: #333;
   overflow: hidden;
 }
-
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
@@ -33,7 +32,6 @@ float:right;
   background-color: #ddd;
   color: black;
 }
-
 /* Add a color to the active/current link */
 .topnav a.active {
   background-color: #4CAF50;

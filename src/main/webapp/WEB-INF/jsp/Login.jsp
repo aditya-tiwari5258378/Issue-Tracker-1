@@ -205,7 +205,9 @@ body{
 </form>
 </div>
 <br/>
-<p style="color:blue;">Forgot Password Click <a href="resetpass">here</a><br><br>
+<p style="color:red;">${message }</p><br>
+ <p style="color:blue;">Forgot Password<a href="resetpass">Click here</a></p><br>
+ <br>
 <p style="color:blue;">Not Registered Click <a href="SignUp">SignUp</a></p>
 
 </div>
