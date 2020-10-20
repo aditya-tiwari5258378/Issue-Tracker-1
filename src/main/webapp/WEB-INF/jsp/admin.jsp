@@ -51,7 +51,5 @@ float:right;
 <a href="logout">Log Out</a>
 </div>
 </div>
-
-    <div> </div>
 </body>
 </html>
