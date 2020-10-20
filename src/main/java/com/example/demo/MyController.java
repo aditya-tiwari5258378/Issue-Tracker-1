@@ -33,37 +33,36 @@ public class MyController {
 		UserDAO udao=new UserDAO();
 		int no=udao.create(user);
 		if(no==1)
-			return "success";
+			return "question";
 		else
 			return "failure";
 	}
 	
-//	@RequestMapping("/verify")
-//	public String verify(Login login) throws SQLException
-//	{
-//		LoginDAO ldao=new LoginDAO();
-//		String p=ldao.validateUser(login);
-//		if(p.equals("user"))
-//			return "Uhome";
-//		else if(p.equals("admin"))
-//			return "Ahome";
-//		else if(p.equals("catrep"))
-//			return "CRhome";
-//		else
-//			return "failure";
-//	}
+	@RequestMapping("/savequestion")
+	public ModelAndView add(Question question) throws SQLException {
+		QuestionDAO qdao=new QuestionDAO();
+		int no=qdao.create(question);
+		ModelAndView mv=new ModelAndView();
+		if(no==1) {
+			mv.setViewName("Login");
+		}
+		else {
+			mv.setViewName("question");
+	        mv.addObject("message","Failed To Register");
+		}
+		return mv;
+	}
+	
 	@RequestMapping("/verify")
 	public ModelAndView validate(String userId, String password, HttpSession session) throws SQLException
 	{
-		//how to check if login is successful or not?
-		//by calling dao method read
-		// if i get null, it means failure.
+
 		ModelAndView mv=new ModelAndView();
 		UserDAO udao=new UserDAO();
 		User user = udao.read(userId, password);
 		if(user==null)
 		{
-			mv.setViewName("failure");
+			mv.setViewName("Login");
 			mv.addObject("message","Login failed");
 		}
 		else
@@ -75,7 +74,47 @@ public class MyController {
 		}
 		return mv;
 	}
+	
+	@RequestMapping("/resetpass")
+	public String update() {
+		return "resetq";
+	}
+	
+	@RequestMapping("passreset")
+	public ModelAndView change(String userId,String a1, String a2,String a3) throws SQLException {
+		ModelAndView mv=new ModelAndView();
+		QuestionDAO qdao=new QuestionDAO();
+		Question question =qdao.read(userId, a1, a2, a3);
+		if(question==null)
+		{
+			mv.setViewName("resetq");
+			mv.addObject("message", "Invalid Answers");
+		}
+		else {
+			mv.setViewName("passwordreset");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("modifypass")
+	public ModelAndView modifypass(String password, String userId) throws SQLException
+	{
 
+		ModelAndView mv=new ModelAndView();
+		UserDAO udao=new UserDAO();
+		int no= udao.update(password, userId);
+		if(no==1)
+		{
+			mv.setViewName("Login");	
+			
+		}
+		else
+		{
+			mv.setViewName("passwordreset");
+			mv.addObject("message","Unable To Change Password");	
+		}
+		return mv;
+	}
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpSession session)
