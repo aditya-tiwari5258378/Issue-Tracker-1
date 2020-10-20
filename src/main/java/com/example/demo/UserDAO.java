@@ -37,4 +37,14 @@ public class UserDAO {
 		con.close();
 		return user;
 	}
+	
+	public int update(String password, String userId) throws SQLException		
+	{
+		Connection con=ConnectionFactory.getConn();
+		PreparedStatement st = con.prepareStatement("UPDATE user_master SET password=? WHERE userId=?");
+		st.setString(1, password);
+		st.setString(2, userId);
+		int no = st.executeUpdate();
+		return no;
+	}
 }
