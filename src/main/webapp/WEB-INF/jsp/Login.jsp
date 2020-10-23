@@ -37,7 +37,7 @@ margin: 0;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #fec107;
+  color: #cf99e8;
   text-transform: uppercase;
   text-align: center;
 }
@@ -162,7 +162,7 @@ margin: 0;
    padding: 8px 10px;
   font-size: 15px; 
   border: 0px;
-  background:  #fec107;
+  background:  #cf99e8;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
@@ -170,7 +170,7 @@ margin: 0;
 }
 
 .wrapper .form .inputfield .btn:hover{
-  background: #ffd658;
+  background: #ff4dff;
 }
 
 .wrapper .form .inputfield:last-child{
@@ -192,7 +192,7 @@ margin: 0;
 </style>
 </head>
 
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="wrapper">
 <div class="title">
       Login Form

@@ -51,7 +51,7 @@ body {
 }
 
 .description {
-	font-size: 35px;
+	font-size: 50px;
 }
 
 .btn {
@@ -105,6 +105,7 @@ body {
   color: #000;
   font-size: 25px; 
 }
+
 
 </style>
 </head>

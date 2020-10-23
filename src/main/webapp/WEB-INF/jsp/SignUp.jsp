@@ -6,6 +6,13 @@
 	<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Registration Form</title>
+	<script type="text/javascript">
+window.history.forward();
+function noBack()
+{
+    window.history.forward();
+}
+</script>
 	<link rel="stylesheet" href="Style.css">
 	<style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
@@ -38,7 +45,7 @@ body{
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #fec107;
+  color: #cf99e8;
   text-transform: uppercase;
   text-align: center;
 }
@@ -163,7 +170,7 @@ body{
    padding: 8px 10px;
   font-size: 15px; 
   border: 0px;
-  background:  #fec107;
+  background:  #cf99e8;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
@@ -171,7 +178,7 @@ body{
 }
 
 .wrapper .form .inputfield .btn:hover{
-  background: #ffd658;
+  background: #ff4dff;
 }
 
 .wrapper .form .inputfield:last-child{
@@ -192,7 +199,7 @@ body{
 }
 </style>
 </head>
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="wrapper">
 <div class="title">
       SignUp Form

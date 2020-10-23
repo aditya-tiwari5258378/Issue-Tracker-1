@@ -28,14 +28,18 @@ public class MyController {
 	}
 	
 	@RequestMapping("/add")
-	public String add(User user) throws SQLException
+	public ModelAndView add(User user,HttpSession session) throws SQLException
 	{
 		UserDAO udao=new UserDAO();
 		int no=udao.create(user);
-		if(no==1)
-			return "question";
+		ModelAndView mv= new ModelAndView();
+		if(no==1) {
+			mv.setViewName("question");		
+			session.setAttribute("user", user);	
+		}
 		else
-			return "failure";
+			mv.setViewName("failure");
+		return mv;
 	}
 	
 	@RequestMapping("/savequestion")
@@ -63,7 +67,7 @@ public class MyController {
 		if(user==null)
 		{
 			mv.setViewName("Login");
-			mv.addObject("message","Login failed");
+			mv.addObject("message","UserId/Password Incorrect");
 		}
 		else
 		{
@@ -81,7 +85,7 @@ public class MyController {
 	}
 	
 	@RequestMapping("passreset")
-	public ModelAndView change(String userId,String a1, String a2,String a3) throws SQLException {
+	public ModelAndView change(String userId,String a1, String a2,String a3,HttpSession session ) throws SQLException {
 		ModelAndView mv=new ModelAndView();
 		QuestionDAO qdao=new QuestionDAO();
 		Question question =qdao.read(userId, a1, a2, a3);
@@ -91,6 +95,7 @@ public class MyController {
 			mv.addObject("message", "Invalid Answers");
 		}
 		else {
+			session.setAttribute("userId", userId);
 			mv.setViewName("passwordreset");
 		}
 		return mv;
@@ -115,6 +120,9 @@ public class MyController {
 		}
 		return mv;
 	}
+	
+
+	
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpSession session)

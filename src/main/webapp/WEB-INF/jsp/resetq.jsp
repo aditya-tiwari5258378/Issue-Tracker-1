@@ -5,6 +5,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript">
+window.history.forward();
+function noBack()
+{
+    window.history.forward();
+}
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
 
@@ -15,7 +22,12 @@
   font-family: 'Montserrat', sans-serif;
 }
 body{
-  background: #fec107;
+  margin: 0;
+	height: 100%;
+	background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+	background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   padding: 0 10px;
 }
 .wrapper{
@@ -31,7 +43,7 @@ body{
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #fec107;
+  color: #cf99e8;
   text-transform: uppercase;
   text-align: center;
 }
@@ -156,7 +168,7 @@ body{
    padding: 8px 10px;
   font-size: 15px; 
   border: 0px;
-  background:  #fec107;
+  background:  #cf99e8;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
@@ -164,7 +176,7 @@ body{
 }
 
 .wrapper .form .inputfield .btn:hover{
-  background: #ffd658;
+  background:  #ff4dff;
 }
 
 .wrapper .form .inputfield:last-child{
@@ -185,7 +197,7 @@ body{
 }
 </style>
 </head>
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="wrapper">
 <div class="title">
       Enter Details

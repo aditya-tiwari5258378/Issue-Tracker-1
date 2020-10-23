@@ -5,6 +5,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript">
+window.history.forward();
+function noBack()
+{
+    window.history.forward();
+}
+</script>
 <style>
 .topnav {
   background-color: #333;
@@ -43,7 +50,7 @@ text-align:center;
 }
 </style>
 </head>
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="topnav">
   <a class="active" href="#home">Home</a>
   <a href="rhelp">Request Help</a>
@@ -54,5 +61,6 @@ text-align:center;
 </div>
 </div>
 <div class="msg">Welcome ${user.firstName }</div>
+
 </body>
 </html>
