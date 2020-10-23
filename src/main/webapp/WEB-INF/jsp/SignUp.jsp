@@ -17,7 +17,12 @@
   font-family: 'Montserrat', sans-serif;
 }
 body{
-  background: #fec107;
+  margin: 0;
+	height: 100%;
+	background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+	background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   padding: 0 10px;
 }
 .wrapper{
