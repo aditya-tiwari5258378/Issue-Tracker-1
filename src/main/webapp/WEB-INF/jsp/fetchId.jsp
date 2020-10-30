@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login Form</title>
-	<link rel="stylesheet" href="Style.css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+window.history.forward();
+function noBack()
+{
+    window.history.forward();
+}
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
 
@@ -17,12 +22,13 @@
   font-family: 'Montserrat', sans-serif;
 }
 body{
-margin: 0;
+  margin: 0;
 	height: 100%;
 	background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
 	background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;  padding: 0 10px;
+  background-attachment: fixed;
+  padding: 0 10px;
 }
 .wrapper{
   max-width: 500px;
@@ -170,7 +176,7 @@ margin: 0;
 }
 
 .wrapper .form .inputfield .btn:hover{
-  background: #ff4dff;
+  background:  #ff4dff;
 }
 
 .wrapper .form .inputfield:last-child{
@@ -191,32 +197,27 @@ margin: 0;
 }
 </style>
 </head>
-
 <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="wrapper">
 <div class="title">
-      Login Form
+      Enter Details
     </div>
 <div class="form">
-<form method="get" action="verify">
+<form method="get" action="getuserid">
 <div class="inputfield">
-<label>User ID</label><input type=text name=userId id=userId class="input" required /></div>
+<label>Contact Number</label><input type=text name=contactNumber id=contactNumber class="input" required /></div>
 <div class="inputfield">
-<label>Password</label><input type=password name=password id=password class="input" required/></div>
+<label>Email</label><input type=text name=email id=email class="input" required /></div>
 <div class="inputfield">
-<input type=submit value="Login" class="btn" />
+<input type=submit value="Get UserId" class="btn" />
 </div>
 </form>
 </div>
 <br/>
+<p style="color:green;">${userid }</p><br>
 <p style="color:red;">${message }</p><br>
-<p style="color:blue;">Forgot UserId<a href="requestid">Click here</a></p><br>
- <br>
- <p style="color:blue;">Forgot Password<a href="resetpass">Click here</a></p><br>
- <br>
-<p style="color:blue;">Not Registered Click <a href="SignUp">SignUp</a></p>
-
+<br>
+<p style="color:blue;">Go to  <a href="Login">  Login</a></p>
 </div>
 </body>
-
 </html>

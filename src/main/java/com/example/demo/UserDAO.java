@@ -38,6 +38,32 @@ public class UserDAO {
 		return user;
 	}
 	
+	public String find(String userId) throws SQLException		//uid, pwd, if i get a record, then it is success
+	{
+		Connection con=ConnectionFactory.getConn();
+		PreparedStatement st = con.prepareStatement("SELECT * FROM user_master WHERE userId=?");
+		st.setString(1, userId);
+		ResultSet rs = st.executeQuery();
+		if(rs.next())
+			return "found";
+		con.close();
+		return "notfound";
+	}
+
+	public User fetch(String contactNumber,String email) throws SQLException		//uid, pwd, if i get a record, then it is success
+	{
+		Connection con=ConnectionFactory.getConn();
+		PreparedStatement st = con.prepareStatement("SELECT * FROM user_master WHERE contactNumber=? AND email=?");
+		st.setString(1, contactNumber);
+		st.setString(2, email);
+		ResultSet rs = st.executeQuery();
+		User user=null;
+		if(rs.next())
+			user=new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+		con.close();
+		return user;
+	}
+	
 	public int update(String password, String userId) throws SQLException		
 	{
 		Connection con=ConnectionFactory.getConn();

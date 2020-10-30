@@ -66,8 +66,16 @@ public class MyController {
 		User user = udao.read(userId, password);
 		if(user==null)
 		{
-			mv.setViewName("Login");
-			mv.addObject("message","UserId/Password Incorrect");
+			String userid =udao.find(userId);
+			if(userid.equals("found")) {
+				mv.setViewName("Login");
+				mv.addObject("message","Password Incorrect");
+			}
+			else {
+				mv.setViewName("Login");
+				mv.addObject("message","UserId Not Present");
+			}
+			
 		}
 		else
 		{
@@ -79,6 +87,27 @@ public class MyController {
 		return mv;
 	}
 	
+	@RequestMapping("/requestid")
+	public String fetch() {
+		return "fetchId";
+	}
+	
+	@RequestMapping("/getuserid")
+	public ModelAndView getuserid(String contactNumber,String email) throws SQLException {
+		ModelAndView mv= new ModelAndView();
+		UserDAO udao=new UserDAO();
+		User user = udao.fetch(contactNumber, email);
+		if(user==null) {
+			mv.setViewName("fetchId");
+			mv.addObject("message","Invalid Answers");
+	
+		}
+		else {
+			mv.setViewName("fetchId");
+			mv.addObject("userid","User ID is "+user.getUserId());
+		}
+		return mv;
+	}
 	@RequestMapping("/resetpass")
 	public String update() {
 		return "resetq";
