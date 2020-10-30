@@ -27,6 +27,16 @@ public class MyController {
 		return "SignUp";
 	}
 	
+	@RequestMapping("/rhelp")
+	public String rhelp() {
+		return "help";
+	}
+	
+	@RequestMapping("/rissue")
+	public String rissue() {
+		return "raiseIssue";
+	}
+	
 	@RequestMapping("/add")
 	public ModelAndView add(User user,HttpSession session) throws SQLException
 	{
@@ -158,5 +168,38 @@ public class MyController {
 	{
 		session.invalidate();
 		return "Logged Out. Click<a href=Login > here </a>to go to login page";
+	}
+	
+	
+	@RequestMapping(value = "/helpIssue", method = RequestMethod.POST)
+	public String checkLogin(@ModelAttribute("Help") Help userformData,  BindingResult 
+	result, HttpSession session)  throws SQLException{
+		
+		HelpDAO hdao = new HelpDAO(); 
+		 
+		User user = (User)session.getAttribute("user");
+	    System.out.println("Controller...");
+	    String userId= user.getUserId();
+	    String requestId= Help.getAlphaNumericString(10);
+	    String issue = userformData.getIssue();
+	    String description = userformData.getDescription();
+	    String dob = Help.getCurrentTimeUsingDate();
+	    Help help = new Help(userId,requestId,issue,description,dob);
+	   int n= hdao.getHelp(help);
+	    return "helpOutput";
+	}
+	
+	@RequestMapping(value = "/RaiseIssue", method = RequestMethod.POST)
+	public String RaiseIssue(@ModelAttribute("raiseIssue") raiseIssue userformData, BindingResult 
+	result, HttpSession session) throws SQLException{
+		raiseIssueDAO rdao = new raiseIssueDAO();
+		User user = (User)session.getAttribute("user");
+		String userId= user.getUserId();
+		String categoryId = raiseIssue.getAlphaNumeric(8);
+		String category = userformData.getCategory();
+		String details = userformData.getDetails();
+		raiseIssue rissue = new raiseIssue(userId,categoryId,category,details);
+		int n = rdao.getRaiseIssue(rissue);
+		return "raiseIssueDisplay";
 	}
 }
