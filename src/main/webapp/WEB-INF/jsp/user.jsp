@@ -54,7 +54,7 @@ text-align:center;
 <div class="topnav">
   <a class="active" href="#home">Home</a>
   <a href="rhelp">Request Help</a>
-  <a href="#">Raise Issue</a>
+  <a href="rissue">Raise Issue</a>
   <a href="#">something</a>
   <div class="leftnav">
 <a href="logout">Log Out</a>
