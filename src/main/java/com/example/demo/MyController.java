@@ -5,7 +5,10 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -172,8 +175,7 @@ public class MyController {
 	
 	
 	@RequestMapping(value = "/helpIssue", method = RequestMethod.POST)
-	public String checkLogin(@ModelAttribute("Help") Help userformData,  BindingResult 
-	result, HttpSession session)  throws SQLException{
+	public String checkLogin(@ModelAttribute("Help") Help userformData,  BindingResult result, HttpSession session)  throws SQLException{
 		
 		HelpDAO hdao = new HelpDAO(); 
 		 
@@ -195,10 +197,10 @@ public class MyController {
 		raiseIssueDAO rdao = new raiseIssueDAO();
 		User user = (User)session.getAttribute("user");
 		String userId= user.getUserId();
-		String categoryId = raiseIssue.getAlphaNumeric(8);
+		String issueId = raiseIssue.getAlphaNumeric(8);
 		String category = userformData.getCategory();
 		String details = userformData.getDetails();
-		raiseIssue rissue = new raiseIssue(userId,categoryId,category,details);
+		raiseIssue rissue = new raiseIssue(userId,issueId,category,details);
 		int n = rdao.getRaiseIssue(rissue);
 		return "raiseIssueDisplay";
 	}

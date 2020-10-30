@@ -6,15 +6,15 @@ public class raiseIssue {
 
 	
 		
-		public raiseIssue(String userId, String categoryId, String category, String details) {
+		public raiseIssue(String userId, String issueId, String category, String details) {
 		super();
 		this.userId = userId;
-		this.categoryId = categoryId;
+		this.issueId = issueId;
 		this.category = category;
 		this.details = details;
 	}
 		private String userId;
-		private String categoryId;
+		private String issueId;
 		private String category;
 		private String details;
 		public String getUserId() {
@@ -23,11 +23,11 @@ public class raiseIssue {
 		public void setUserId(String userId) {
 			this.userId = userId;
 		}
-		public String getCategoryId() {
-			return categoryId;
+		public String getIssueId() {
+			return issueId;
 		}
-		public void setCategoryId(String categoryId) {
-			this.categoryId = categoryId;
+		public void setIssueId(String issueId) {
+			this.issueId = issueId;
 		}
 		public String getCategory() {
 			return category;
@@ -59,7 +59,7 @@ public class raiseIssue {
 	    }
 		@Override
 		public String toString() {
-			return "raiseIssue [userId=" + userId + ", categoryId=" + categoryId + ", category=" + category
+			return "raiseIssue [userId=" + userId + ", issueId=" + issueId + ", category=" + category
 					+ ", details=" + details + "]";
 		}
 		
