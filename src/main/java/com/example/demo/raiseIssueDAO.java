@@ -11,7 +11,7 @@ public class raiseIssueDAO {
 		Connection con = ConnectionFactory.getConn();
 		PreparedStatement st = con.prepareStatement("INSERT INTO raise_issue VALUES(?,?,?,?)");
 		st.setString(1, help.getUserId());
-		st.setString(2, help.getCategoryId());
+		st.setString(2, help.getIssueId());
 		st.setString(3, help.getCategory());
 		st.setString(4, help.getDetails());
 		
