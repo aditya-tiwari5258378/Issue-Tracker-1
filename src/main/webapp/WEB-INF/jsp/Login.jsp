@@ -198,7 +198,7 @@ margin: 0;
       Login Form
     </div>
 <div class="form">
-<form method="get" action="verify">
+<form method="post" action="verify">
 <div class="inputfield">
 <label>User ID</label><input type=text name=userId id=userId class="input" required /></div>
 <div class="inputfield">

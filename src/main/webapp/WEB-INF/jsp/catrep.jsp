@@ -53,7 +53,7 @@ text-align:center;
 <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="topnav">
   <a class="active" href="#home">Home</a>
-  <a href="issue">View Issues</a>
+  <a href="catIssue">View Issues</a>
   <a href="#">something</a>
   <a href="#">something</a>
   <div class="leftnav">

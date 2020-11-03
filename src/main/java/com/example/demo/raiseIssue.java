@@ -6,28 +6,31 @@ public class raiseIssue {
 
 	
 		
-		public raiseIssue(String userId, String issueId, String category, String details) {
+		public raiseIssue(String userId, String categoryId, String category, String details, String status) {
 		super();
 		this.userId = userId;
-		this.issueId = issueId;
+		this.categoryId = categoryId;
 		this.category = category;
 		this.details = details;
+		this.status = status;
 	}
+		
 		private String userId;
-		private String issueId;
+		private String categoryId;
 		private String category;
 		private String details;
+		private String status;
 		public String getUserId() {
 			return userId;
 		}
 		public void setUserId(String userId) {
 			this.userId = userId;
 		}
-		public String getIssueId() {
-			return issueId;
+		public String getCategoryId() {
+			return categoryId;
 		}
-		public void setIssueId(String issueId) {
-			this.issueId = issueId;
+		public void setCategoryId(String categoryId) {
+			this.categoryId = categoryId;
 		}
 		public String getCategory() {
 			return category;
@@ -42,6 +45,12 @@ public class raiseIssue {
 			this.details = details;
 		}
 		
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
 		public static String getAlphaNumeric(int n) 
 	    { 
 	        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -57,10 +66,12 @@ public class raiseIssue {
 	        } 
 	        return sb.toString(); 
 	    }
+		
+		
 		@Override
 		public String toString() {
-			return "raiseIssue [userId=" + userId + ", issueId=" + issueId + ", category=" + category
-					+ ", details=" + details + "]";
+			return "raiseIssue [userId=" + userId + ", categoryId=" + categoryId + ", category=" + category
+					+ ", details=" + details + ", status=" + status + "]";
 		}
 		
 		

@@ -1,10 +1,12 @@
 package com.example.demo;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,13 +33,32 @@ public class MyController {
 	}
 	
 	@RequestMapping("/rhelp")
-	public String rhelp() {
-		return "help";
+	public ModelAndView rhelp(HttpSession session) {
+		ModelAndView mv= new ModelAndView();
+		User user=(User)session.getAttribute("user");
+		if(user==null) {
+			mv.addObject("error","you have not logged in please click here <a href=Login> here</a> to go to login page");
+			mv.setViewName("failure");
+		}
+		else {
+		mv.setViewName("help");	
+		}
+		return mv;
+		
 	}
 	
 	@RequestMapping("/rissue")
-	public String rissue() {
-		return "raiseIssue";
+	public ModelAndView rissue(HttpSession session) {
+		ModelAndView mv= new ModelAndView();
+		User user=(User)session.getAttribute("user");
+		if(user==null) {
+			mv.addObject("error","you have not logged in please click here <a href=Login> here</a> to go to login page");
+			mv.setViewName("failure");
+		}
+		else {
+		mv.setViewName("raiseIssue");	
+		}
+		return mv;
 	}
 	
 	@RequestMapping("/add")
@@ -70,7 +91,7 @@ public class MyController {
 		return mv;
 	}
 	
-	@RequestMapping("/verify")
+	@RequestMapping(value="/verify",method = RequestMethod.POST)
 	public ModelAndView validate(String userId, String password, HttpSession session) throws SQLException
 	{
 
@@ -187,7 +208,7 @@ public class MyController {
 	    String description = userformData.getDescription();
 	    String dob = Help.getCurrentTimeUsingDate();
 	    Help help = new Help(userId,requestId,issue,description,dob);
-	   int n= hdao.getHelp(help);
+	    int n= hdao.getHelp(help);
 	    return "helpOutput";
 	}
 	
@@ -197,11 +218,213 @@ public class MyController {
 		raiseIssueDAO rdao = new raiseIssueDAO();
 		User user = (User)session.getAttribute("user");
 		String userId= user.getUserId();
-		String issueId = raiseIssue.getAlphaNumeric(8);
+		String categoryId = raiseIssue.getAlphaNumeric(8);
 		String category = userformData.getCategory();
 		String details = userformData.getDetails();
-		raiseIssue rissue = new raiseIssue(userId,issueId,category,details);
+		String status = userformData.getStatus();
+		raiseIssue rissue = new raiseIssue(userId,categoryId,category,details,status);
 		int n = rdao.getRaiseIssue(rissue);
 		return "raiseIssueDisplay";
 	}
+	
+	@RequestMapping(value="/viewHelp",method=RequestMethod.GET)
+	public String update1(HttpSession session,ModelMap model) throws SQLException 
+	{
+		//List<Help>requestList = List<Help>(session.getAttribute("requestList"));
+		HelpDAO helpdao = new HelpDAO();
+		List<Help> requestList = helpdao.viewHelp();
+		//System.out.println(requestList);
+		model.put("requestList", requestList);
+		//System.out.println(requestList);
+		return "viewHelp";
+	}
+	
+	@RequestMapping("/resolveIssue")
+	public String update2(Help help,HttpSession session) {
+		session.setAttribute("help", help);
+		System.out.println(help.getRequestId());
+		return "resolveIssue";
+	}
+	
+	@RequestMapping(value = "/roIssue", method = RequestMethod.POST)
+	public String checkLogin(@ModelAttribute("Resolution") Resolution userformData, BindingResult 
+	result,HttpSession session)  throws SQLException{
+		
+		ResolutionDAO rdao = new ResolutionDAO(); 
+		 
+		
+		Help help = (Help)session.getAttribute("help");
+	    System.out.println("Resolution...");
+  
+	    System.out.println("=====>  " + userformData.getResolution());
+	    System.out.println("=====>  " + help.getRequestId());
+	   
+	  
+	    String requestId  = help.getRequestId();
+	    String resolve = userformData.getResolution();
+	   
+	    Resolution resolution = new Resolution(requestId,resolve);
+	  
+	    //rdao.addHelp(resolution);
+	   // session.setAttribute("requestList", requestList);
+	   int n= rdao.getResolved(resolution);
+	   System.out.println(n);
+	    return "showResolution";
+	}
+      @RequestMapping(value="/delete",method=RequestMethod.GET)
+      public String deleteToDo(Help help,HttpSession session) throws SQLException
+      {
+    	  session.setAttribute("help", help);
+    	  Help help1 = (Help)session.getAttribute("help");
+    	   String requestId  = help1.getRequestId();
+    	  HelpDAO hdao = new HelpDAO();
+    	  hdao.delete(requestId);
+    	  return "redirect:/viewHelp";
+    	  
+      }
+      
+
+      @RequestMapping(value="/userhistory",method = RequestMethod.GET)
+    	public String userHistoryList(ModelMap model,HttpSession session) throws SQLException 
+        {
+      	  //session.setAttribute("user", user);
+      	  User user = (User)session.getAttribute("user");
+    	    //System.out.println("Controller...");
+    	    String userId= user.getUserId();
+      	   System.out.println(userId);
+      	raiseIssueDAO rdao = new raiseIssueDAO();
+    		List<raiseIssue> displayList = rdao.displayList(userId);
+    		//System.out.println(requestList);
+    		model.put("displayList", displayList);
+    		System.out.println(displayList);
+    		return "userHistory";
+    	}
+      
+
+      @RequestMapping("/displayUserHistory")
+    	public String userHistoryDetails(HttpSession session, raiseIssue raiseissue,ModelMap model) throws SQLException 
+        {
+      	  session.setAttribute("raiseissue", raiseissue);
+      	  raiseIssue raiseissue1 = (raiseIssue)session.getAttribute("raiseissue");
+      	  User user = (User)session.getAttribute("user");
+      	   String categoryId  = raiseissue1.getCategoryId();
+      	 raiseIssueDAO rdao = new raiseIssueDAO();
+      	  raiseIssue raiseIssue2 = rdao.view(categoryId);
+      	  model.put("raiseIssue", raiseIssue2);
+    		return "displayUserHistory";
+    	  }
+      @RequestMapping(value="/adminHistory",method = RequestMethod.GET)
+  	public String adminHistoryList( raiseIssue raiseissue,ModelMap model,HttpSession session) throws SQLException 
+      {
+    	  // session.setAttribute("user", user);
+    	  session.setAttribute("raiseissue", raiseissue);
+    	  raiseIssue raiseIssue1 = (raiseIssue)session.getAttribute("raiseissue");
+    	  //User user1 = (User)session.getAttribute("user");
+    	   //String requestId  = help1.getRequestId();
+    	  raiseIssueDAO rdao = new raiseIssueDAO();
+    	  List<raiseIssue>categoryList = rdao.viewHistoryIssue();
+    	  //System.out.println(categoryList);
+    	  model.put("categoryList", categoryList);
+    	  return "adminHistory";
+  	}
+      
+      @RequestMapping("/displayAdminHistory")
+    	public String adminHistoryDetails(HttpSession session, raiseIssue raiseissue,ModelMap model,User user) throws SQLException 
+        {
+    	  session.setAttribute("raiseissue", raiseissue);
+      	  raiseIssue raiseissue1 = (raiseIssue)session.getAttribute("raiseissue");
+      	  User user1 = (User)session.getAttribute("user");
+      	   String categoryId  = raiseissue1.getCategoryId();
+      	 raiseIssueDAO rdao = new raiseIssueDAO();
+      	  raiseIssue raiseIssue2 = rdao.view(categoryId);
+      	  model.put("raiseIssue", raiseIssue2);
+    		return "displayAdminHistory";
+    	  }
+      
+      
+      @RequestMapping(value="/mapCat",method=RequestMethod.GET)
+      public String mapCategory(raiseIssue raiseissue,HttpSession session,ModelMap model) throws SQLException
+      {
+    	  session.setAttribute("raiseissue", raiseissue);
+    	  raiseIssue help1 = (raiseIssue)session.getAttribute("raiseissue");
+    	   String categoryId  = help1.getCategoryId();
+    	   raiseIssueDAO rdao = new raiseIssueDAO();
+    	  raiseIssue issue=rdao.view(categoryId);
+    	  model.put("issue", issue);
+    	  return "changeCat";
+    	  
+      }
+      
+      @RequestMapping(value="/updateCat",method=RequestMethod.GET)
+      public String updateCategory(raiseIssue raiseissue,HttpSession session) throws SQLException
+      {
+    	  session.setAttribute("raiseissue", raiseissue);
+    	  raiseIssue help1 = (raiseIssue)session.getAttribute("raiseissue");
+    	  String categoryId  = help1.getCategoryId();
+    	  String category  = help1.getCategory();
+    	  raiseIssueDAO upd=new raiseIssueDAO();
+    	  int n=upd.update(category,categoryId);
+    	 return "redirect:catIssue";
+      }
+      
+      @RequestMapping(value="/catIssue",method=RequestMethod.GET)
+  	public String updateIssue(HttpSession session,ModelMap model) throws SQLException 
+  	{
+  		//List<Help>requestList = List<Help>(session.getAttribute("requestList"));
+  		raiseIssueDAO helpdao = new raiseIssueDAO();
+  		List<raiseIssue> requestList = helpdao.viewIssue();
+  		//System.out.println(requestList);
+  		model.put("requestList", requestList);
+  		//System.out.println(requestList);
+  		return "viewIssue";
+  	}
+      
+     //mani
+      
+      @RequestMapping("/addCatpage")
+      public String showaddcatpage() {
+    	  return "addcategory";
+      }
+      
+      @RequestMapping(value="/addCat",method=RequestMethod.GET)
+  	public String addCat(Category category,HttpSession session) throws SQLException
+  	{
+  		CategoryDAO cdao=new CategoryDAO();
+  		int no=cdao.addCat(category);
+  		if(no==1) {
+  			return "redirect:/viewCat";
+  		}
+  		else
+  			return "failure";
+  	}
+      
+      @RequestMapping(value="/deleteCat",method=RequestMethod.GET)
+      public String deleteCat(Category category,HttpSession session) throws SQLException
+      {
+    	  session.setAttribute("category", category);
+    	  Category help1 = (Category)session.getAttribute("category");
+    	   String id  = category.getId();
+    	   CategoryDAO catdao = new CategoryDAO();
+    	   catdao.delete(id);
+    	  return "redirect:/viewCat";
+    	  
+      }
+
+    @RequestMapping(value="/viewCat",method=RequestMethod.GET)
+	public String viewCat(HttpSession session,ModelMap model) throws SQLException 
+	{
+		//List<Category>requestList = List<Category>(session.getAttribute("requestList"));
+		CategoryDAO catdao = new CategoryDAO();
+		List<Category> requestList = catdao.viewCat();
+		//System.out.println(requestList);
+		model.put("requestList", requestList);
+		//System.out.println(requestList);
+		return "viewcategory";
+	}
+
+
+    
+
+
+	
 }

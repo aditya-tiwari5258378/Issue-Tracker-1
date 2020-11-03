@@ -5,6 +5,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript">
+window.history.forward();
+function noBack()
+{
+    window.history.forward();
+}
+</script>
 <style>
 *,
 *::before,
@@ -184,28 +191,77 @@ textarea:focus {
     display: inline;
   }
 }
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav .leftnav a{
+float:right;
+ color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+.msg{
+font-size:25px;
+text-align:center;
+}
 
 </style>
 </head>
-<body>
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
+<div class="topnav">
+  <a href="#home">Home</a>
+  <a href="rhelp">Request Help</a>
+  <a class="active" href="rissue">Raise Issue</a>
+  <a href="#">something</a>
+  <div class="leftnav">
+<a href="logout">Log Out</a>
+</div>
+</div>
 <div class="container card message-container ">
-  <h1 class="message-title">Send A Message</h1>
+  <h1 class="message-title">Raise Issue</h1>
 
   <form action="/RaiseIssue" method="post" modelAttribute="getFormData">
     
     <label for="message" class="message">Category</label>
 	<select class="message" name="category">
-  <option value="issue1">Category 1</option>
-  <option value="issue2">Category 2</option>
-  <option value="issue3">Category 3</option>
-  <option value="issue4">Category 4</option>
+  <option value="category1">Category 1</option>
+  <option value="category2">Category 2</option>
+  <option value="category3">Category 3</option>
 </select>
 
     <label for="message" class="message">Details</label>
     <textarea name="details" cols="30" rows="7" required maxlength="500"></textarea>
+    <label for="message" class="message">Status</label>
+	<select class="message" name="status">
+  <option value="active">active</option>
+  <option value="in-progress">in-progress</option>
+  <option value="completed">completed</option>
+</select>
+    
 
     <p class="button-container">
-     <input class="button" type="submit" value="Send">
+     <input class="button" type="submit" value="Submit">
     </p>
   </form>
 </div>

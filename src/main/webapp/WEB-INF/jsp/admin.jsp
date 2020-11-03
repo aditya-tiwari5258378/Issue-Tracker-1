@@ -49,9 +49,9 @@ float:right;
 <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="topnav">
   <a class="active" href="#home">Home</a>
-  <a href="help">View Help</a>
-  <a href="#">something</a>
-  <a href="#">something</a>
+  <a href="viewHelp">View Help</a>
+  <a href="viewCat">Add Category</a>
+  <a href="adminHistory">View All Issues</a>
   <div class="leftnav">
 <a href="logout">Log Out</a>
 </div>
