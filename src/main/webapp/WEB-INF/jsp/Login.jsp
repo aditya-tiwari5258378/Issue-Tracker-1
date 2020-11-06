@@ -31,6 +31,7 @@ margin: 0;
   margin: 20px auto;
   box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
   padding: 30px;
+  border-radius:25px;
 }
 
 .wrapper .title{
@@ -165,12 +166,13 @@ margin: 0;
   background:  #cf99e8;
   color: #fff;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 25px;
   outline: none;
 }
 
 .wrapper .form .inputfield .btn:hover{
   background: #ff4dff;
+ 
 }
 
 .wrapper .form .inputfield:last-child{
@@ -210,11 +212,11 @@ margin: 0;
 </div>
 <br/>
 <p style="color:red;">${message }</p><br>
-<p style="color:blue;">Forgot UserId<a href="requestid">Click here</a></p><br>
+<p style="color:#82919D;">Forgot UserId&nbsp;<a href="requestid" >Click here</a></p><br>
  <br>
- <p style="color:blue;">Forgot Password<a href="resetpass">Click here</a></p><br>
+ <p style="color:#82919D;">Forgot Password&nbsp;<a href="resetpass" >Click here</a></p><br>
  <br>
-<p style="color:blue;">Not Registered Click <a href="SignUp">SignUp</a></p>
+<p style="color:#82919D;">Not Registered&nbsp;<a href="SignUp" >SignUp</a></p>
 
 </div>
 </body>

@@ -5,23 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.example.demo.mapper.HelpRowMapper;
+import com.example.demo.mapper.UserRowMapper;
+
+@Configuration
+public class UserDAO 
+{
+	@Autowired
+	JdbcTemplate template;
 	public int create(User user) throws SQLException
-	{
-		Connection con = ConnectionFactory.getConn();
-		PreparedStatement st = con.prepareStatement("INSERT INTO user_master VALUES(?,?,?,?,?,?,?,?,?)");
-		st.setString(1, user.getUserId());
-		st.setString(2, user.getPassword());
-		st.setString(3, user.getFirstName());
-		st.setString(4, user.getLastName());
-		st.setString(5, user.getDob());
-		st.setString(6, user.getGender());
-		st.setString(7, user.getContactNumber());
-		st.setString(8, user.getEmail());
-		st.setString(9, user.getCategory());
-		int no=st.executeUpdate();
-		System.out.println(no+" row(s) affected");
+	{		
+		String sql = "INSERT INTO user_master VALUES(?,?,?,?,?,?,?,?,?)";
+		int no = template.update(sql, user.getUserId(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getDob(),user.getGender(),user.getContactNumber(), user.getEmail(),user.getCategory());
 		return no;
 	}
 	public User read(String userId, String password) throws SQLException		//uid, pwd, if i get a record, then it is success
@@ -52,25 +51,17 @@ public class UserDAO {
 
 	public User fetch(String contactNumber,String email) throws SQLException		//uid, pwd, if i get a record, then it is success
 	{
-		Connection con=ConnectionFactory.getConn();
-		PreparedStatement st = con.prepareStatement("SELECT * FROM user_master WHERE contactNumber=? AND email=?");
-		st.setString(1, contactNumber);
-		st.setString(2, email);
-		ResultSet rs = st.executeQuery();
 		User user=null;
-		if(rs.next())
-			user=new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
-		con.close();
+		String sql = "SELECT * FROM user_master WHERE contactNumber=? AND email=?";
+		UserRowMapper rowmapper = new UserRowMapper();
+	    user = template.queryForObject(sql, rowmapper,contactNumber,email);
 		return user;
 	}
 	
 	public int update(String password, String userId) throws SQLException		
 	{
-		Connection con=ConnectionFactory.getConn();
-		PreparedStatement st = con.prepareStatement("UPDATE user_master SET password=? WHERE userId=?");
-		st.setString(1, password);
-		st.setString(2, userId);
-		int no = st.executeUpdate();
-		return no;
+		String sql = "UPDATE user_master SET password=? WHERE userId=?";
+		int update = template.update(sql,password,userId);
+		return update;
 	}
 }

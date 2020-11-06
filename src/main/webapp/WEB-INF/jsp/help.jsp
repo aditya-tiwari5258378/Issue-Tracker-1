@@ -70,6 +70,8 @@ p#break {
   width: 75%;
   margin: auto;
   max-width: 700px;
+  margin-top:50px;
+  border-radius:25px;
 }
 
 .card {
@@ -230,10 +232,10 @@ text-align:center;
 </head>
 <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
 <div class="topnav">
-  <a href="#home">Home</a>
+  <a href="#">Home</a>
   <a class="active" href="rhelp">Request Help</a>
   <a href="rissue">Raise Issue</a>
-  <a href="#">something</a>
+ <a href="userhistory?userId=${user.userId}">View History</a>
   <div class="leftnav">
 <a href="logout">Log Out</a>
 </div>

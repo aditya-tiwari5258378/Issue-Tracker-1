@@ -1,248 +1,149 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<html>
 <head>
-	<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration Form</title>
-	<script type="text/javascript">
-window.history.forward();
-function noBack()
-{
-    window.history.forward();
-}
-</script>
-	<link rel="stylesheet" href="Style.css">
-	<style>
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
-}
+<title>Login Page</title>
+<link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+	rel="stylesheet">
+<style>
 body{
-  margin: 0;
-	height: 100%;
-	background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
-	background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  padding: 0 10px;
+	background-color: #EAE7DC;
 }
-.wrapper{
-  max-width: 500px;
-  width: 100%;
-  background: #fff;
-  margin: 20px auto;
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
-  padding: 30px;
+.container {
+	margin-top: 2%;
+	width: 50%;
+	height: 80%;
+	border: 3px solid black;
+	padding: 20px;
 }
 
-.wrapper .title{
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #cf99e8;
-  text-transform: uppercase;
+input {
+	margin-left: 15%;
+}
+f:error{
+font-size: 50px;
+}
+b {
+	margin-left: 15%;
+}
+
+button {
+	width: 90px;
+	font-size: 20px;
+	margin-left: 9%;
+}
+
+h1 {
+	margin-left: 40%;
+}
+td{
+width:650px;
+}
+.topNavigation {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topNavigation a {
+  float: left;
+  color: #f2f2f2;
   text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-.wrapper .form{
-  width: 100%;
+/* Change the color of links on hover */
+.topNavigation a:hover {
+  background-color: #ddd;
+  color: black;
 }
 
-.wrapper .form .inputfield{
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-}
-
-.wrapper .form .inputfield label{
-   width: 200px;
-   color: #757575;
-   margin-right: 10px;
-  font-size: 14px;
-}
-
-.wrapper .form .inputfield .input,
-.wrapper .form .inputfield .textarea{
-  width: 100%;
-  outline: none;
-  border: 1px solid #d5dbd9;
-  font-size: 15px;
-  padding: 8px 10px;
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}
-
-.wrapper .form .inputfield .textarea{
-  width: 100%;
-  height: 125px;
-  resize: none;
-}
-
-.wrapper .form .inputfield .custom_select{
-  position: relative;
-  width: 100%;
-  height: 37px;
-}
-
-.wrapper .form .inputfield .custom_select:before{
-  content: "";
-  position: absolute;
-  top: 12px;
-  right: 10px;
-  border: 8px solid;
-  border-color: #d5dbd9 transparent transparent transparent;
-  pointer-events: none;
-}
-
-.wrapper .form .inputfield .custom_select select{
-  -webkit-appearance: none;
-  -moz-appearance:   none;
-  appearance:        none;
-  outline: none;
-  width: 100%;
-  height: 100%;
-  border: 0px;
-  padding: 8px 10px;
-  font-size: 15px;
-  border: 1px solid #d5dbd9;
-  border-radius: 3px;
-}
-
-
-.wrapper .form .inputfield .input:focus,
-.wrapper .form .inputfield .textarea:focus,
-.wrapper .form .inputfield .custom_select select:focus{
-  border: 1px solid #fec107;
-}
-
-.wrapper .form .inputfield p{
-   font-size: 14px;
-   color: #757575;
-}
-.wrapper .form .inputfield .check{
-  width: 15px;
-  height: 15px;
-  position: relative;
-  display: block;
-  cursor: pointer;
-}
-.wrapper .form .inputfield .check input[type="checkbox"]{
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
-.wrapper .form .inputfield .check .checkmark{
-  width: 15px;
-  height: 15px;
-  border: 1px solid #fec107;
-  display: block;
-  position: relative;
-}
-.wrapper .form .inputfield .check .checkmark:before{
-  content: "";
-  position: absolute;
-  top: 1px;
-  left: 2px;
-  width: 5px;
-  height: 2px;
-  border: 2px solid;
-  border-color: transparent transparent #fff #fff;
-  transform: rotate(-45deg);
-  display: none;
-}
-.wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark{
-  background: #fec107;
-}
-
-.wrapper .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark:before{
-  display: block;
-}
-
-.wrapper .form .inputfield .btn{
-  width: 100%;
-   padding: 8px 10px;
-  font-size: 15px; 
-  border: 0px;
-  background:  #cf99e8;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 3px;
-  outline: none;
-}
-
-.wrapper .form .inputfield .btn:hover{
-  background: #ff4dff;
-}
-
-.wrapper .form .inputfield:last-child{
-  margin-bottom: 0;
-}
-
-@media (max-width:420px) {
-  .wrapper .form .inputfield{
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .wrapper .form .inputfield label{
-    margin-bottom: 5px;
-  }
-  .wrapper .form .inputfield.terms{
-    flex-direction: row;
-  }
+/* Add a color to the active/current link */
+.topNavigation a.home {
+  background-color: #3333ff;
+  color: white;
 }
 </style>
 </head>
-<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
-<div class="wrapper">
-<div class="title">
-      SignUp Form
-    </div>
-<div class="form">
-<form method="get" action="add">
-<div class="inputfield">
-<label>User ID</label><input type=text name=userId id=userId class="input" required /></div>
-<div class="inputfield">
-<label>Password</label><input type=text name=password id=password class="input" required /></div>
-<div class="inputfield">
-<label>First Name</label><input type=text name=firstName id=firstName class="input" required /></div>
-<div class="inputfield">
-<label>Last Name</label><input type=text name=lastName id=lastName class="input" required /></div>
-<div class="inputfield">
-<label>Date of Birth</label><input type=text name=dob id=dob class="input" required /></div>
-<div class="inputfield">
-<label>Gender</label><div class="custom_select"><select name="gender" id="gender">
-              <option value="">Select</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-            </div>
-            </div>
-<div class="inputfield">
-<label>Contact Number</label><input type=text name=contactNumber id=contactNumber class="input" required /></div>
-<div class="inputfield">
-<label>Email</label><input type=text name=email id=email class="input" required /></div>
-<div class="inputfield">
-<label>Category</label><div class="custom_select"><select name="category" id="category">
-              <option value="">Select</option>
-              <option value="user">User</option>
-              <option value="catrep">Category Representative</option>
-            </select>
-            </div>
-            </div>
-<div class="inputfield">
-<input type=submit value="SignUp" class="btn" />
-</div>
-</form>
-</div>
-<br>
-<p style="color:blue;">Already Registered Click <a href="Login">  Login</a></p>
-</div>
+<body>
+<div class="topNavigation">
+  <a class="home">Register</a>
+  </div>
+	<h1>User Registration</h1>
+	<div class="container">
+		<font color="red">${error}</font>
+		<font color="red">${dberror}</font>
+		<f:form method="POST" modelAttribute="user">
+			<table style="border-collapse: separate; border-spacing: 0 15px;">
+			<tr>
+			        <td><b>User Id:</b> <f:input style="width: 350px;" type="userId" name="userId"
+							path="userId" class="form-control" required="required" /></td>
+					<td><f:errors path="userId" cssClass="text-warning" /></td>
+			</tr>
+			<tr>
+					<td><b>Password:</b> <f:input style="width: 350px;" type="password" name="password"
+							path="password" class="form-control" required="required" /></td>
+					<td><f:errors path="password" cssClass="text-warning" /></td>
+				</tr>
+				<tr>
+					<td><b>First Name:</b> <f:input style="width: 350px;"
+							type="text" name="firstName" path="firstName"
+							class="form-control" required="required" /></td>
+					<td><f:errors path="firstName" cssClass="text-warning" /></td>
+				</tr>
+				<tr>
+					<td><b>Last Name:</b> <f:input style="width: 350px;"
+							type="text" name="lastName" path="lastName" class="form-control"
+							required="required" /></td>
+					<td><f:errors path="lastName" cssClass="text-warning" /></td>
+				</tr>
+				<tr>
+					<td><b>Date Of Birth:</b> <f:input style="width: 350px;"
+							type="date" name="dob" path="dob"  class="form-control" required="required" /></td>
+					<td><f:errors path="dob" cssClass="text-warning" /></td>
+				</tr>
+				<tr>
+					<td><b>Gender:<f:select name="gender" path="gender" class="form-control" required="required" >
+					 <f:option value="">Select</f:option>
+                     <f:option value="male">Male</f:option>
+                     <f:option value="female">Female</f:option>
+					</f:select></td>
+				</tr>
+				<tr>
+					<td><b>Contact Number:</b> <f:input style="width: 350px;"
+							type="tel" name="contactNumber" path="contactNumber" class="form-control"
+							required="required" /></td>
+					<td><f:errors path="contactNumber" cssClass="text-warning" /></td>
+				</tr>
+				<tr>
+					<td><b>Email Id:</b> <f:input style="width: 350px;"
+							type="text" name="email" path="email" class="form-control"
+							required="required" /></td>
+					<td><f:errors path="email" cssClass="text-warning" /></td>
+				</tr>
+				
+				<tr>
+					<td><b>Category:</b> <f:select name="category" path="category" class="form-control" required="required" >
+					 <f:option value="">Select</f:option>
+                     <f:option value="user">User</f:option>
+                     <f:option value="catrep">Category Representative</f:option>
+					</f:select></td>
+					<td><f:errors path="category" cssClass="text-warning" /></td>
+				</tr>
+				
+				<tr>
+					<td><button type="submit" class="btn btn-success">Register</button></td>
+					<td><button type="reset" class="btn btn-danger" value="Clear">Reset</button></td>
+			</table>
+		</f:form>
+	</div>
+	<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+	<script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script>
+	</script>
 </body>
+
 </html>

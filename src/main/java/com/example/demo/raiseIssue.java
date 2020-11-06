@@ -1,18 +1,26 @@
+
 package com.example.demo;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Random;
 
 
 public class raiseIssue {
 
-	
+	    public raiseIssue()
+	    {
+	    	
+	    }
 		
-		public raiseIssue(String userId, String categoryId, String category, String details, String status) {
+		public raiseIssue(String userId, String categoryId, String category, String details, String status,Date dateOfIssue) {
 		super();
 		this.userId = userId;
 		this.categoryId = categoryId;
 		this.category = category;
 		this.details = details;
 		this.status = status;
+		this.dateOfIssue = dateOfIssue;
 	}
 		
 		private String userId;
@@ -20,6 +28,27 @@ public class raiseIssue {
 		private String category;
 		private String details;
 		private String status;
+		private Date dateOfIssue;
+		
+		
+		public static Date getDate() 
+	    { 
+	        //LocalDate l = java.time.LocalDate.now();
+			LocalDate localDate = LocalDate.now();
+			 
+			Date date = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			return date;
+	    }
+		
+		public void setDateOfIssue(Date dateOfIssue) {
+			this.dateOfIssue = dateOfIssue;
+		}
+
+		public Date getDateOfIssue() 
+		{
+			return dateOfIssue;
+		}
+
 		public String getUserId() {
 			return userId;
 		}
@@ -66,6 +95,7 @@ public class raiseIssue {
 	        } 
 	        return sb.toString(); 
 	    }
+		
 		
 		
 		@Override

@@ -6,27 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Home</title>
 <style>
-/* body{
-  background: #fec107;
-  padding: 0 10px;
-}
-.wrapper{
-  max-width: 500px;
-  width: 100%;
-  background: #fff;
-  margin: 20px auto;
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
-  padding: 30px;
-}
 
-.wrapper .title{
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #fec107;
-  text-transform: uppercase;
-  text-align: center;
-} */
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 
 body {
@@ -106,14 +86,23 @@ body {
   font-size: 25px; 
 }
 
+ #description{
+position: relative;
+  animation: mymove 5s infinite;
+}
 
+@keyframes mymove {
+  from {left: 0px;}
+  to {left: 200px;}
+}
 </style>
 </head>
 <body>
 <div class="button_container">
 	<p class="description"><b>Issue Tracker</b></p>
 	<a href="Login"><button class="btn">Login</button></a><br>
-		<a href="SignUp"><button class="btn">SignUp</button></a>
+		<a href="SignUp"><button class="btn">SignUp</button></a><br>
+		<p class="description" id="description"><b>Get Your Issues Resolved</b></p>
 	
   
 </div>

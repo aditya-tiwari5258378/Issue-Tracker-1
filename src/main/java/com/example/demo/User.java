@@ -2,13 +2,22 @@ package com.example.demo;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.time.LocalDate;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class User {
 
-	private String userId;
-	private String password;
-	public User(String userId, String password, String firstName, String lastName, String dob, String gender,
-			String contactNumber, String email, String category) {
+	public User(String userId, String password,
+			@Size(min = 3, max = 15, message = "Min 3,Max 15 alphabets needed") String firstName,
+			@Size(min = 3, max = 15, message = "Min 3,Max 15 alphabets needed") String lastName, String dob,
+			@Size(min = 4, max = 15, message = "male or female") String gender,
+			@Pattern(regexp = "(^$|[0-9]{10})", message = "Invalid Contact Number") String contactNumber,
+			@Email(message = "Invalid Email Id") String email, String category) {
 		super();
 		this.userId = userId;
 		this.password = password;
@@ -20,13 +29,27 @@ public class User {
 		this.email = email;
 		this.category = category;
 	}
+	public User()
+	{
+		
+	}
+
+	private String userId;
+	private String password;
+	@Size(min = 3, max = 15, message = "Min 3,Max 15 alphabets needed")
 	private String firstName;
+	@Size(min = 3, max = 15, message = "Min 3,Max 15 alphabets needed")
 	private String lastName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String dob;
+	@Size(min = 4, max = 15, message = "male or female")
 	private String gender;
+	@Pattern(regexp="(^$|[0-9]{10})",message="Invalid Contact Number")
 	private String contactNumber;
+	@Email(message = "Invalid Email Id")
 	private String email;
 	private String category;
+	
 	public String getUserId() {
 		return userId;
 	}

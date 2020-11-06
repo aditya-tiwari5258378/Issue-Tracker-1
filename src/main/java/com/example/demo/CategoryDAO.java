@@ -7,42 +7,43 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-public class CategoryDAO {
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.example.demo.mapper.CategoryRowMapper;
+import com.example.demo.mapper.raiseIssueRowMapper;
+@Configuration
+public class CategoryDAO 
+{
+   @Autowired
+   JdbcTemplate template;
 	List<Category> requestList = new ArrayList<Category>();	
 	public List<Category> viewCat()throws SQLException
 	{
-		Connection con=ConnectionFactory.getConn();
-		PreparedStatement st = con.prepareStatement("SELECT * FROM category");
-		ResultSet rs = st.executeQuery();
-		
-	   while(rs.next())
-		{
-			Category category=null;
-			category=new Category(rs.getString(1), rs.getString(2));
-		    requestList.add(category);
-		}
-		con.close();
-		
-	    return requestList;
+		 String sql = "SELECT * FROM category";
+		    CategoryRowMapper rowmapper = new CategoryRowMapper();
+		    requestList = template.query(sql, rowmapper);
+		    return requestList;
 	}
 	public int addCat(Category category) throws SQLException
 	{
-		Connection con = ConnectionFactory.getConn();
-		PreparedStatement st = con.prepareStatement("INSERT INTO category VALUES(?,?)");
-		st.setString(1, category.getId());
-		st.setString(2, category.getName());
-		int no=st.executeUpdate();
-		System.out.println(no+" row(s) affected");
-		return no;
+			String sql = "INSERT INTO category VALUES(?,?)";
+	
+		int update = template.update(sql,category.getId(),category.getName());
+		return update;
+		
 	}
 	
 	public void delete(String id) throws SQLException
 	{
-		Connection con=ConnectionFactory.getConn();
-		PreparedStatement st = con.prepareStatement("Delete FROM category where id=?");
-		st.setString(1,id);
-		int n = st.executeUpdate();	
+		
+		String sql = "Delete FROM category where id=?";
+		
+		int update = template.update(sql,id);
+		
+		
 	}
 	
 }

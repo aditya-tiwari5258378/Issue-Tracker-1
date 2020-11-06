@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +12,11 @@
 <form action="/updateCat" method="get">
 User ID:${issue.userId }<br>
 CategoryId:<input type=text name=categoryId value=${issue.categoryId } ><br>
-Category:<select class="message" name="category"  >
-  <option value="" >Select</option>
-  <option value="category1">Category 1</option>
-  <option value="category2">Category 2</option>
-  <option value="category3">Category 3</option>
+Category:   <select name="category">
+    <option value="">Select</option>
+    <c:forEach items="${requestList}" var="category">
+        <option value="${category.name}">${category.name}</option>
+    </c:forEach>
 </select><br>
 Details:${issue.details } <br>
 Status:${issue.status } <br>

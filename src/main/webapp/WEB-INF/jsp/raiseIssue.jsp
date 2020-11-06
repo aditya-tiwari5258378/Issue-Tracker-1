@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +71,10 @@ p#break {
   width: 75%;
   margin: auto;
   max-width: 700px;
+  border-radius:25px;
+  margin-top:50px;
 }
+
 
 .card {
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.46);
@@ -233,7 +237,7 @@ text-align:center;
   <a href="#home">Home</a>
   <a href="rhelp">Request Help</a>
   <a class="active" href="rissue">Raise Issue</a>
-  <a href="#">something</a>
+   <a href="userhistory?userId=${user.userId}">View History</a>
   <div class="leftnav">
 <a href="logout">Log Out</a>
 </div>
@@ -244,19 +248,17 @@ text-align:center;
   <form action="/RaiseIssue" method="post" modelAttribute="getFormData">
     
     <label for="message" class="message">Category</label>
-	<select class="message" name="category">
-  <option value="category1">Category 1</option>
-  <option value="category2">Category 2</option>
-  <option value="category3">Category 3</option>
+	    <select name="category">
+    <c:forEach items="${requestList}" var="category">
+        <option value="${category.name}">${category.name}</option>
+    </c:forEach>
 </select>
 
     <label for="message" class="message">Details</label>
     <textarea name="details" cols="30" rows="7" required maxlength="500"></textarea>
     <label for="message" class="message">Status</label>
 	<select class="message" name="status">
-  <option value="active">active</option>
-  <option value="in-progress">in-progress</option>
-  <option value="completed">completed</option>
+  <option value="Active">Active</option>
 </select>
     
 

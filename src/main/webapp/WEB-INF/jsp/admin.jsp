@@ -13,6 +13,12 @@ function noBack()
 }
 </script>
 <style>
+body{
+background-image: url("https://wallpaperaccess.com/full/16668.jpg");
+background-repeat: no-repeat;
+background-size: cover;
+}
+
 .topnav {
   background-color: #333;
   overflow: hidden;
@@ -46,12 +52,13 @@ float:right;
 }
 </style>
 </head>
-<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
+<body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="" >
 <div class="topnav">
   <a class="active" href="#home">Home</a>
   <a href="viewHelp">View Help</a>
   <a href="viewCat">Add Category</a>
   <a href="adminHistory">View All Issues</a>
+  <a href="report">Generate Report</a>
   <div class="leftnav">
 <a href="logout">Log Out</a>
 </div>

@@ -4,20 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+@Configuration
 public class ResolutionDAO
 {
+	@Autowired
+	JdbcTemplate template;
 	
 	public int getResolved(Resolution resolution) throws SQLException
 	{
-		Connection con = ConnectionFactory.getConn();
-		PreparedStatement st = con.prepareStatement("INSERT INTO ticket_resolution VALUES(?,?)");
-		st.setString(1,resolution.getRequestId());
-		st.setString(2, resolution.getResolution());
-		
-		int no=st.executeUpdate();
-		System.out.println(no+" row(s) affected");
-		
-		
+		String sql = "INSERT INTO ticket_resolution VALUES(?,?)";
+		int no = template.update(sql,resolution.getRequestId(),resolution.getResolution());
 		return no;
 	}
 

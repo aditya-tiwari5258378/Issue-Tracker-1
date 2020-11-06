@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +45,20 @@ float:right;
   background-color: #4CAF50;
   color: white;
 }
-.msg{
-font-size:25px;
-text-align:center;
-}
+#leftbox { 
+                float:left;  
+                width:75%; 
+                height:800px; 
+                font-size:25px;
+                text-align:center;
+            } 
+#rightbox{ 
+                float:right; 
+                background:#f0f0f0; 
+                width:25%; 
+                height:800px; 
+            } 
+
 </style>
 </head>
 <body onLoad="noBack();" onpageshow="if (event.persisted) noBack();" onUnload="">
@@ -60,7 +71,22 @@ text-align:center;
 <a href="logout">Log Out</a>
 </div>
 </div>
-<div class="msg">Welcome ${user.firstName }</div>
+<div id = "leftbox">Welcome ${user.firstName }</div>
+<div id="rightbox">
+<h2>Notifications:</h2>
+  <c:forEach items="${notificationList}" var="item">
+   <form method="post">
+    <tr>
+    <td>${str }</td>
+    <td><c:out value="${item.name}" /></td>
+      <input type="hidden" name="name" value="${item.name}"/>
+      <td>${str1 }
+      <td><a type="button" class="btn btn-success" href="/removenoti?name=${item.name}">Remove</a></td>
+      </form>
+    </tr>
+  </c:forEach>
+</div>
+
 
 </body>
 </html>

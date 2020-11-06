@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -40,6 +41,32 @@ float:right;
 font-size:25px;
 text-align:center;
 }
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top:30px;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+ #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+ #customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+
 </style>
 </head>
 <body>
@@ -47,18 +74,22 @@ text-align:center;
   <a href="#home">Home</a>
   <a class="active" href="rhelp">Request Help</a>
   <a href="rissue">Raise Issue</a>
-  <a href="#">something</a>
   <div class="leftnav">
 <a href="logout">Log Out</a>
 </div>
 </div>
-<table>
+<div>
+<center>
+<h1>Raised Issue Details</h1>
+</center>
+</div>
+<table id="customers">
    <tr>
   <td>UserId :</td>
   <td>${user.userId}</td>
   </tr>
    <tr>
-   <td>CategoryId:</td>
+   <td>IssueId:</td>
    <td>${raiseIssue.getAlphaNumeric(8) }
    </tr>
    <tr>
